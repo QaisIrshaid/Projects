@@ -51,9 +51,10 @@ namespace FileWorx
             String[] sep = files[0].Split('$');
             titleTB.Text = sep[0];
             descriptionTB.Text = sep[1];
-            //picBox.Image = Image.FromFile(sep[2]);
+            picBox.Image = Image.FromFile(sep[2]);
+            
 
-            //URL.Text = sep[2];
+            URL.Text = sep[2];
             body.Text = sep[5];
             int i = 1;
             while (i < files.Length)
@@ -75,9 +76,6 @@ namespace FileWorx
                 else
                     MessageBox.Show("The file extension is not supported, please try another file.");
             }
-
-            
-
 
         }
 
