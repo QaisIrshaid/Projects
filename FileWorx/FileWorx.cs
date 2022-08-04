@@ -16,6 +16,8 @@ namespace FileWorx
         private Rectangle listV;
         private Rectangle original;
         private String id;
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         private void UpdateTextPosition()
         {
             Graphics g = this.CreateGraphics();
@@ -44,7 +46,7 @@ namespace FileWorx
         private void FileWorx_Load(object sender, EventArgs e)
         {
             
-            String path = @"\git\Projects\FileWorx\News\";
+            String path = dir+@"\News\";
             String[] items = Directory.GetFileSystemEntries(path);
 
             String[] row;
@@ -69,7 +71,7 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = @"\git\Projects\FileWorx\News\";
+                String path = dir+@"\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 object s3= grid.Rows[e.RowIndex].Cells[4].Value;
                 String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
@@ -131,7 +133,7 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = @"\git\Projects\FileWorx\News\";
+                String path = dir+@"\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
                 String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
@@ -199,7 +201,7 @@ namespace FileWorx
             if (!this.grid.Rows[this.rowIndex].IsNewRow)
             {
                 this.grid.Rows.RemoveAt(this.rowIndex);
-                String path = @"\git\Projects\FileWorx\News\";
+                String path = dir+@"\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 File.Delete(items[rowIndex]);
 

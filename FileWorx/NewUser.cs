@@ -14,6 +14,8 @@ namespace FileWorx
     public partial class NewUser : Form
     {
         private String id;
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         private void UpdateTextPosition()
         {
             Graphics g = this.CreateGraphics();
@@ -44,7 +46,7 @@ namespace FileWorx
             else
             {
 
-                String fileName = @"\git\Projects\FileWorx\Users\" + Guid.NewGuid().ToString() + ".txt";
+                String fileName = dir+@"\Users\" + Guid.NewGuid().ToString() + ".txt";
 
                 StreamWriter sw = new StreamWriter(fileName);
                 sw.WriteLine(name.Text + "$" + loginName.Text + "$" + password.Text + "$" + this.id);

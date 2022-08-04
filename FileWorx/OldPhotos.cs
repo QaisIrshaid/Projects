@@ -16,6 +16,8 @@ namespace FileWorx
     {
         private String oldPath;
         private String id;
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         private void UpdateTextPosition()
         {
             Graphics g = this.CreateGraphics();
@@ -85,7 +87,7 @@ namespace FileWorx
             { MessageBox.Show("Please fill all the arguments to proceed"); }
             else
             {
-                String destinationPath = Path.Combine(@"\git\Projects\FileWorx\Photos\", Path.GetFileName(URL.Text));
+                String destinationPath = Path.Combine(dir+@"\Photos\", Path.GetFileName(URL.Text));
                 File.Copy(URL.Text, destinationPath, true);
 
                 StreamWriter sw = new StreamWriter(oldPath);

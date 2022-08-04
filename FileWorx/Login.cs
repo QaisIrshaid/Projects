@@ -13,6 +13,8 @@ namespace FileWorx
 {
     public partial class Login : Form
     {
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         public Login()
         {
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace FileWorx
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String path = @"\git\Projects\FileWorx\Users\";
+            String path = dir+@"\Users\";
             String[] items = Directory.GetFileSystemEntries(path);
             foreach(String item in items)
             {

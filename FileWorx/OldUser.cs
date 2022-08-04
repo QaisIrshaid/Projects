@@ -15,6 +15,8 @@ namespace FileWorx
     {
         private String id;
         private String oldPath;
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         private void UpdateTextPosition()
         {
             Graphics g = this.CreateGraphics();
@@ -46,7 +48,7 @@ namespace FileWorx
         public void fill(String path)
         {
             this.Show();
-            path = @"\git\Projects\FileWorx\Users\" + path; 
+            path = dir+@"\Users\" + path; 
             oldPath = path;
 
             String[] files = File.ReadAllLines(path);

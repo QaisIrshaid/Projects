@@ -15,6 +15,8 @@ namespace FileWorx
     {
 
         private String id;
+        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+
         private void UpdateTextPosition()
         {
             Graphics g = this.CreateGraphics();
@@ -54,7 +56,7 @@ namespace FileWorx
             { MessageBox.Show("Please fill all the arguments to proceed"); }
             else
             {
-                String fileName = @"\git\Projects\FileWorx\News\" + Guid.NewGuid().ToString() + ".txt";
+                String fileName = dir+@"\News\" + Guid.NewGuid().ToString() + ".txt";
                 StreamWriter sw = new StreamWriter(fileName);
                 sw.WriteLine(titleTB.Text + "$" + descriptionTB.Text + "$" + comboBox1.Text + "$" + id + "$" + "non" + "$" + body.Text);
                 sw.Flush();
