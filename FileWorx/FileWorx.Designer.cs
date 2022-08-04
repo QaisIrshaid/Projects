@@ -60,6 +60,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -156,7 +157,8 @@
             this.Title,
             this.creationDate,
             this.description,
-            this.lastModifier});
+            this.lastModifier,
+            this.index});
             this.grid.Dock = System.Windows.Forms.DockStyle.Top;
             this.grid.Location = new System.Drawing.Point(0, 24);
             this.grid.Name = "grid";
@@ -392,6 +394,13 @@
             this.splitContainer1.SplitterDistance = 78;
             this.splitContainer1.TabIndex = 1;
             // 
+            // index
+            // 
+            this.index.HeaderText = "index";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.Visible = false;
+            // 
             // FileWorx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -462,5 +471,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accountSittingsToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index;
     }
 }

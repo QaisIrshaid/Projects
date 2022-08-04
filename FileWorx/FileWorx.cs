@@ -50,13 +50,14 @@ namespace FileWorx
             String[] row;
             for (int i = 0; i < items.Length; i++)
             {
+                
                 String[] files = File.ReadAllLines(items[i]);
                 String[] sep = files[0].Split('$');
                 FileInfo inf = new FileInfo(items[i]);
                 DateTime dt = inf.CreationTime;
                 String[] useId = File.ReadAllLines(@"\git\Projects\FileWorx\Users\" + sep[3]);
                 String[] sep2 = useId[0].Split('$');
-                row = new String[] { sep[0], dt.ToString(), sep[1], sep2[0] };
+                row = new String[] { sep[0], dt.ToString(), sep[1], sep2[0],i.ToString() };
                 grid.Rows.Add(row);
 
             }
@@ -70,7 +71,9 @@ namespace FileWorx
             {
                 String path = @"\git\Projects\FileWorx\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
-                String[] files = File.ReadAllLines(items[e.RowIndex]);
+                object s3= grid.Rows[e.RowIndex].Cells[4].Value;
+                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
+                //MessageBox.Show(e.RowIndex.ToString()+"   "+s3.ToString());
                 String[] sep = files[0].Split('$');
                 
 
@@ -85,7 +88,7 @@ namespace FileWorx
                     tabControl1.Hide();
                     tabControl2.Show();
 
-                    titleTB.Text = sep[0];
+                    titleTB.Text = s1.ToString();
                     dateBox.Text = s2.ToString();
                     category.Text = sep[2];
                     richBox2.Text = sep[5];
@@ -94,14 +97,11 @@ namespace FileWorx
                     while (i < files.Length)
                     { richBox2.Text += "\n" + files[i]; i++; }
 
-
-
                 }
 
 
                 else
                 {
-
 
                     object s1 = grid.Rows[e.RowIndex].Cells[0].Value;
                     object s2 = grid.Rows[e.RowIndex].Cells[1].Value;
@@ -120,8 +120,6 @@ namespace FileWorx
                     while (i < files.Length)
                     { richBox.Text += "\n" + files[i]; i++; }
 
-
-               
                 }
             }
             else return;
@@ -131,26 +129,30 @@ namespace FileWorx
 
         private void grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            String path = @"\git\Projects\FileWorx\News\";
-            String[] items = Directory.GetFileSystemEntries(path);
-            String[] files = File.ReadAllLines(items[e.RowIndex]);
-            String[] sep = files[0].Split('$');
-            if (sep[4] == "non")
+            if (e.RowIndex != -1)
             {
+                String path = @"\git\Projects\FileWorx\News\";
+                String[] items = Directory.GetFileSystemEntries(path);
+                object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
+                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
+                String[] sep = files[0].Split('$');
+                if (sep[4] == "non")
+                {
 
-                this.Hide();
-                OldNews old = new OldNews(this.id);
-                old.fill(items[e.RowIndex].ToString());
+                    this.Hide();
+                    OldNews old = new OldNews(this.id);
+                    old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+                }
+
+                else
+                {
+                    this.Hide();
+                    OldPhotos old = new OldPhotos(this.id);
+                    old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+
+                }
             }
-
-            else
-            {
-                this.Hide();
-                OldPhotos old = new OldPhotos(this.id);
-                old.fill(items[e.RowIndex].ToString());
-
-            }
-
+            else return;
         }
 
         private void addNewsToolStripMenuItem_Click(object sender, EventArgs e)
