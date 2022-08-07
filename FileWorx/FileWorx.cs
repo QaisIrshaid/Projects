@@ -46,7 +46,8 @@ namespace FileWorx
         private void FileWorx_Load(object sender, EventArgs e)
         {
             
-            String path = dir+@"\News\";
+            String path = dir+@"News\";
+            
             String[] items = Directory.GetFileSystemEntries(path);
 
             String[] row;
@@ -57,7 +58,7 @@ namespace FileWorx
                 String[] sep = files[0].Split('$');
                 FileInfo inf = new FileInfo(items[i]);
                 DateTime dt = inf.CreationTime;
-                String[] useId = File.ReadAllLines(@"\git\Projects\FileWorx\Users\" + sep[3]);
+                String[] useId = File.ReadAllLines(dir+@"Users\" + sep[3]);
                 String[] sep2 = useId[0].Split('$');
                 row = new String[] { sep[0], dt.ToString(), sep[1], sep2[0],i.ToString() };
                 grid.Rows.Add(row);
@@ -71,7 +72,7 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = dir+@"\News\";
+                String path = dir+@"News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 object s3= grid.Rows[e.RowIndex].Cells[4].Value;
                 String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
@@ -133,7 +134,7 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = dir+@"\News\";
+                String path = dir+@"News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
                 String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
@@ -201,7 +202,7 @@ namespace FileWorx
             if (!this.grid.Rows[this.rowIndex].IsNewRow)
             {
                 this.grid.Rows.RemoveAt(this.rowIndex);
-                String path = dir+@"\News\";
+                String path = dir+@"News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 File.Delete(items[rowIndex]);
 
@@ -232,6 +233,11 @@ namespace FileWorx
             old.fill(this.id);
             this.Hide();
             
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

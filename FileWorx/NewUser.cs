@@ -46,7 +46,7 @@ namespace FileWorx
             else
             {
 
-                String fileName = dir+@"\Users\" + Guid.NewGuid().ToString() + ".txt";
+                String fileName = dir+@"Users\" + Guid.NewGuid().ToString() + ".txt";
 
                 StreamWriter sw = new StreamWriter(fileName);
                 sw.WriteLine(name.Text + "$" + loginName.Text + "$" + password.Text + "$" + this.id);

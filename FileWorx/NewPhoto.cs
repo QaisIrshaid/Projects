@@ -67,10 +67,10 @@ namespace FileWorx
             { MessageBox.Show("Please fill all the arguments to proceed"); }
             else
             {
-                String destinationPath = Path.Combine(dir+@"\Photos\", Path.GetFileName(URL.Text));
+                String destinationPath = Path.Combine(dir+@"Photos\", Path.GetFileName(URL.Text));
                 File.Copy(URL.Text, destinationPath, true);
 
-                String fileName = dir+@"\News\" + Guid.NewGuid().ToString() + ".txt";
+                String fileName = dir+@"News\" + Guid.NewGuid().ToString() + ".txt";
 
                 StreamWriter sw = new StreamWriter(fileName);
                 sw.WriteLine(titleTB.Text + "$" + descriptionTB.Text + "$" + destinationPath + "$" + id + "$" + "p" + "$" + body.Text);

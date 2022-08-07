@@ -48,7 +48,7 @@ namespace FileWorx
         public void fill(String path)
         {
             this.Show();
-            path = dir+@"\Users\" + path; 
+            path = dir+@"Users\" + path; 
             oldPath = path;
 
             String[] files = File.ReadAllLines(path);

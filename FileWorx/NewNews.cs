@@ -56,7 +56,7 @@ namespace FileWorx
             { MessageBox.Show("Please fill all the arguments to proceed"); }
             else
             {
-                String fileName = dir+@"\News\" + Guid.NewGuid().ToString() + ".txt";
+                String fileName = dir+@"News\" + Guid.NewGuid().ToString() + ".txt";
                 StreamWriter sw = new StreamWriter(fileName);
                 sw.WriteLine(titleTB.Text + "$" + descriptionTB.Text + "$" + comboBox1.Text + "$" + id + "$" + "non" + "$" + body.Text);
                 sw.Flush();

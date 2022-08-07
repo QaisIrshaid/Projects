@@ -87,7 +87,7 @@ namespace FileWorx
             { MessageBox.Show("Please fill all the arguments to proceed"); }
             else
             {
-                String destinationPath = Path.Combine(dir+@"\Photos\", Path.GetFileName(URL.Text));
+                String destinationPath = Path.Combine(dir+@"Photos\", Path.GetFileName(URL.Text));
                 File.Copy(URL.Text, destinationPath, true);
 
                 StreamWriter sw = new StreamWriter(oldPath);

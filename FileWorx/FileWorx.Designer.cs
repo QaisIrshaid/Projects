@@ -40,6 +40,7 @@
             this.creationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastModifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.richBox2 = new System.Windows.Forms.RichTextBox();
@@ -60,7 +61,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -193,6 +193,13 @@
             this.lastModifier.HeaderText = "Last Modifier";
             this.lastModifier.Name = "lastModifier";
             this.lastModifier.ReadOnly = true;
+            // 
+            // index
+            // 
+            this.index.HeaderText = "index";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.Visible = false;
             // 
             // tabControl2
             // 
@@ -362,6 +369,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(588, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // contextMenuStrip1
             // 
@@ -393,13 +401,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(588, 273);
             this.splitContainer1.SplitterDistance = 78;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // index
-            // 
-            this.index.HeaderText = "index";
-            this.index.Name = "index";
-            this.index.ReadOnly = true;
-            this.index.Visible = false;
             // 
             // FileWorx
             // 

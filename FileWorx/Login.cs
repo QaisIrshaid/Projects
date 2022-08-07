@@ -39,7 +39,7 @@ namespace FileWorx
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String path = dir+@"\Users\";
+            String path = dir+@"Users\";
             String[] items = Directory.GetFileSystemEntries(path);
             foreach(String item in items)
             {
