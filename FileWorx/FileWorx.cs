@@ -47,7 +47,6 @@ namespace FileWorx
         {
             
             String path = dir+@"News\";
-            
             String[] items = Directory.GetFileSystemEntries(path);
 
             String[] row;
