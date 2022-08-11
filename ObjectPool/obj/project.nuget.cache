@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PQQM0hdzOOLwJ4DBvuqP4Z8FOpiQ390y2lYO1EBnZ2oGUWNrbzin2BV185BEnGwGlm6yh2cTmXBHFwdLdHvozA==",
+  "dgSpecHash": "yG/o3I1uw8Ei3Fb1FOHCGHbAnob7Ft+Cgzt0kN4j6046nDCKdWIPjIdVISyG4ySUVzgGIhnE+LDilXhBdDsICQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\ObjectPool\\ObjectPooling.csproj",
+  "projectFilePath": "D:\\git\\Projects\\ObjectPool\\ObjectPooling.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
