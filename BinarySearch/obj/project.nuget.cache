@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5XpbRTrnhBE61B4A/seYiAOQKY41N1cEm94Ya7VGp6J3jzCUB6jZ/aWWpMhrLGFRaDgRpLwru6eWcerulFAqOg==",
+  "dgSpecHash": "m31cXbKZM1avq2KDGqioWQDAeA4WSqjZ1GXO/1/skif8Kz8zVkQtNpjsJL3pODKIZDwEX4Gs5CQvOzPeZEfh7Q==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\BinarySearch\\ConsoleApp5.csproj",
+  "projectFilePath": "D:\\git\\Projects\\BinarySearch\\ConsoleApp5.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
