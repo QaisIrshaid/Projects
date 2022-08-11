@@ -11,73 +11,73 @@ using System.IO;
 
 namespace FileWorx
 {
+
     public partial class FileWorx : Form
     {
-        private Rectangle listV;
-        private Rectangle original;
-        private String id;
-        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
 
-        private void UpdateTextPosition()
-        {
-            Graphics g = this.CreateGraphics();
-            Double startingPoint = (this.Width / 2) - (g.MeasureString(this.Text.Trim(), this.Font).Width / 2);
-            Double widthOfASpace = g.MeasureString(" ", this.Font).Width;
-            String tmp = " ";
-            Double tmpWidth = 0;
+        private string id;
 
-            while ((tmpWidth + widthOfASpace) < startingPoint)
-            {
-                tmp += " ";
-                tmpWidth += widthOfASpace;
-            }
+        private static string mainDirectoryPath = Directory.GetCurrentDirectory();
+        //removing (/bin/debug) to get to FileWorx as the main folder.
+        private string requiredDirectoryPath = Directory.GetParent(Directory.GetParent(mainDirectoryPath).ToString()).ToString();
 
-            this.Text = tmp + this.Text.Trim();
-        }
+        private readonly string complexSeparator = "%%$$##";
+
         public FileWorx(String id)
         {
             InitializeComponent();
             this.id = id;
-            UpdateTextPosition();
+            load();
+
         }
 
-        
-
-        private void FileWorx_Load(object sender, EventArgs e)
+        private void load()
         {
-            
-            String path = dir+@"News\";
-            String[] items = Directory.GetFileSystemEntries(path);
 
-            String[] row;
+            string path = requiredDirectoryPath + @"\News\";
+            string[] items = Directory.GetFileSystemEntries(path);
+            string[] row;
+
             for (int i = 0; i < items.Length; i++)
             {
-                
-                String[] files = File.ReadAllLines(items[i]);
-                String[] sep = files[0].Split('$');
+
+                string[] files = File.ReadAllLines(items[i]);
+                string[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
                 FileInfo inf = new FileInfo(items[i]);
                 DateTime dt = inf.CreationTime;
-                String[] useId = File.ReadAllLines(dir+@"Users\" + sep[3]);
-                String[] sep2 = useId[0].Split('$');
-                row = new String[] { sep[0], dt.ToString(), sep[1], sep2[0],i.ToString() };
+                string[] useId = File.ReadAllLines(requiredDirectoryPath + @"\Users\" + sep[3]);
+                string[] sep2 = useId[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+                row = new string[] { sep[0], dt.ToString(), sep[1], sep2[0], i.ToString() };
                 grid.Rows.Add(row);
 
             }
         }
+        public void Refrech()
+        {
+            grid.Rows.Clear();
+            titleTB.Text = dateBox.Text = category.Text = richBox2.Text = richBox.Text = picBox.ImageLocation = "";
+            dateBox.Text = "";
+            category.Text = "";
+            richBox2.Text = "";
+            richBox.Text = "";
+            picBox.ImageLocation = "";
+            load();
+        }
 
-       
-       
+
         private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex != -1)
             {
-                String path = dir+@"News\";
-                String[] items = Directory.GetFileSystemEntries(path);
-                object s3= grid.Rows[e.RowIndex].Cells[4].Value;
-                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
+
+                string path = requiredDirectoryPath + @"\News\";
+                string[] items = Directory.GetFileSystemEntries(path);
+                object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
+                //MessageBox.Show(Convert.ToInt32(s3.ToString()).ToString());
+                string[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
                 //MessageBox.Show(e.RowIndex.ToString()+"   "+s3.ToString());
-                String[] sep = files[0].Split('$');
-                
+                string[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
 
                 if (sep[4] == "non")
                 {
@@ -86,7 +86,7 @@ namespace FileWorx
                     object s2 = grid.Rows[e.RowIndex].Cells[1].Value;
 
                     category.Show();
-                    label3.Show();
+                    lablCategory.Show();
                     tabControl1.Hide();
                     tabControl2.Show();
 
@@ -101,7 +101,6 @@ namespace FileWorx
 
                 }
 
-
                 else
                 {
 
@@ -111,19 +110,20 @@ namespace FileWorx
                     titleTB.Text = s1.ToString();
                     dateBox.Text = s2.ToString();
                     category.Hide();
-                    label3.Hide();
-
+                    lablCategory.Hide();
 
                     tabControl1.Show();
                     tabControl2.Hide();
                     richBox.Text = sep[5];
-                    picBox.Image = Image.FromFile(sep[2]);
+                    picBox.ImageLocation = (sep[2]);
                     int i = 1;
                     while (i < files.Length)
                     { richBox.Text += "\n" + files[i]; i++; }
 
                 }
+
             }
+
             else return;
 
         }
@@ -133,24 +133,29 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = dir+@"News\";
+                String path = requiredDirectoryPath + @"\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
                 object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
                 String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
-                String[] sep = files[0].Split('$');
+                String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+
                 if (sep[4] == "non")
                 {
 
-                    this.Hide();
-                    OldNews old = new OldNews(this.id);
+                    //this.Hide();
+                    NewNews old = new NewNews(this.id);
                     old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+                    Refrech();
+
                 }
 
                 else
                 {
-                    this.Hide();
-                    OldPhotos old = new OldPhotos(this.id);
+
+                    //this.Hide();
+                    NewPhoto old = new NewPhoto(this.id);
                     old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+                    Refrech();
 
                 }
             }
@@ -160,33 +165,30 @@ namespace FileWorx
         private void addNewsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewNews news = new NewNews(this.id);
-            news.Show();
-            this.Hide();
+            news.ShowDialog();
+            Refrech();
+
         }
 
         private void addPhotosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewPhoto photo = new NewPhoto(this.id);
-            this.Hide();
-            photo.Show();
+            photo.ShowDialog();
+            Refrech();
         }
 
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewUser user = new NewUser(this.id);
-            user.Show();
-            this.Hide();
+            user.ShowDialog();
+            Refrech();
         }
-       
-      
 
         private int rowIndex = 0;
 
-        
-
         private void grid_CellMouseUp_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && e.RowIndex != -1)
             {
                 this.grid.Rows[e.RowIndex].Selected = true;
                 this.rowIndex = e.RowIndex;
@@ -200,17 +202,29 @@ namespace FileWorx
         {
             if (!this.grid.Rows[this.rowIndex].IsNewRow)
             {
+                object s3 = grid.Rows[this.rowIndex].Cells[4].Value;
                 this.grid.Rows.RemoveAt(this.rowIndex);
-                String path = dir+@"News\";
+                String path = requiredDirectoryPath + @"\News\";
                 String[] items = Directory.GetFileSystemEntries(path);
-                File.Delete(items[rowIndex]);
+                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
+                String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+                files[0] = null;
+                if (sep[4] == "non")
+                {
 
+                    File.Delete(items[Convert.ToInt32(s3.ToString())]);
 
+                }
+                else
+                {
+
+                    File.Delete(sep[2]);
+                    File.Delete(items[Convert.ToInt32(s3.ToString())]);
+
+                }
+
+                Refresh();
             }
-        }
-
-        private void splitContainer2_Panel1_Paint_1(object sender, PaintEventArgs e)
-        {
 
         }
 
@@ -221,22 +235,30 @@ namespace FileWorx
 
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             Login log = new Login();
             log.Show();
             this.Hide();
+
         }
 
         private void accountSittingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OldUser old = new OldUser(this.id);
+
+            NewUser old = new NewUser(this.id);
             old.fill(this.id);
-            this.Hide();
-            
+            Refrech();
+
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            Users user = new Users();
+            user.ShowDialog();
+
         }
+
+
     }
 }

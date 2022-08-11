@@ -12,7 +12,5 @@ D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewNews.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewPhoto.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewUser.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.FileWorx.resources
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.OldNews.resources
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.OldPhotos.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.Login.resources
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.OldUser.resources
+D:\git\Projects\FileWorx\obj\Debug\FileWorx.Users.resources

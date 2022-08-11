@@ -13,30 +13,21 @@ namespace FileWorx
 {
     public partial class NewUser : Form
     {
+        private String oldPath;
         private String id;
-        private String dir = Directory.GetCurrentDirectory().Split('b')[0];
+        private static string mainDirectoryPath = Directory.GetCurrentDirectory();
 
-        private void UpdateTextPosition()
-        {
-            Graphics g = this.CreateGraphics();
-            Double startingPoint = (this.Width / 2) - (g.MeasureString(this.Text.Trim(), this.Font).Width / 2);
-            Double widthOfASpace = g.MeasureString(" ", this.Font).Width;
-            String tmp = " ";
-            Double tmpWidth = 0;
+        //removing (/bin/debug) to get to FileWorx as the main folder.
+        private String requiredDirectoryPath = Directory.GetParent(Directory.GetParent(mainDirectoryPath).ToString()).ToString();
 
-            while ((tmpWidth + widthOfASpace) < startingPoint)
-            {
-                tmp += " ";
-                tmpWidth += widthOfASpace;
-            }
+        private readonly string complexSeparator = "%%$$##";
 
-            this.Text = tmp + this.Text.Trim();
-        }
+        
         public NewUser(String id)
         {
             InitializeComponent();
             this.id = id;
-            UpdateTextPosition();
+            
         }
 
         private void Save_Click(object sender, EventArgs e)
@@ -45,30 +36,58 @@ namespace FileWorx
                 MessageBox.Show("Please fill all the arguments to proceed");
             else
             {
+                if (oldPath == null)
+                {
+                    String fileName = requiredDirectoryPath + @"\Users\" + Guid.NewGuid().ToString() + ".txt";
 
-                String fileName = dir+@"Users\" + Guid.NewGuid().ToString() + ".txt";
+                    StreamWriter sw = new StreamWriter(fileName);
+                    sw.WriteLine(name.Text + complexSeparator + loginName.Text + complexSeparator + password.Text + complexSeparator + this.id);
+                    sw.Flush();
+                    sw.Close();
 
-                StreamWriter sw = new StreamWriter(fileName);
-                sw.WriteLine(name.Text + "$" + loginName.Text + "$" + password.Text + "$" + this.id);
-                sw.Flush();
-                sw.Close();
+                    this.Hide();
+                    
+                }
 
-                this.Hide();
-                FileWorx worx = new FileWorx(this.id);
-                worx.Show();
+                else
+                {
+                    StreamWriter sw = new StreamWriter(oldPath);
+                    sw.WriteLine(name.Text + complexSeparator + loginName.Text + complexSeparator + password.Text + complexSeparator + this.id);
+                    sw.Flush();
+                    sw.Close();
+
+                    this.Hide();
+                    oldPath = null;
+                }
             }
         }
 
         private void cancel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FileWorx worx = new FileWorx(this.id);
-            worx.Show();
+            
         }
 
         private void NewUser_Load(object sender, EventArgs e)
         {
             password.PasswordChar = '*';
+        }
+
+        public void fill(String path)
+        {
+            
+            path = requiredDirectoryPath + @"\Users\" + path;
+            oldPath = path;
+
+            String[] files = File.ReadAllLines(path);
+            String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+
+            name.Text = sep[0];
+            loginName.Text = sep[1];
+            password.Text = sep[2];
+            this.ShowDialog();
+
+
         }
     }
 }
