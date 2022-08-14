@@ -8,9 +8,9 @@ D:\git\Projects\FileWorx\obj\Debug\FileWorx.csproj.GenerateResource.cache
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.csproj.CoreCompileInputs.cache
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.exe
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.pdb
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewNews.resources
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewPhoto.resources
-D:\git\Projects\FileWorx\obj\Debug\FileWorx.NewUser.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.FileWorx.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.Login.resources
 D:\git\Projects\FileWorx\obj\Debug\FileWorx.Users.resources
+D:\git\Projects\FileWorx\obj\Debug\FileWorx.AddNews.resources
+D:\git\Projects\FileWorx\obj\Debug\FileWorx.AddPhoto.resources
+D:\git\Projects\FileWorx\obj\Debug\FileWorx.AddUser.resources

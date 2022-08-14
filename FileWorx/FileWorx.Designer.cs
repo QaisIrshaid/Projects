@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.titleTB = new System.Windows.Forms.TextBox();
-            this.dateBox = new System.Windows.Forms.TextBox();
+            this.titleTxtBox = new System.Windows.Forms.TextBox();
+            this.dateTxtBox = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.lablCategory = new System.Windows.Forms.Label();
@@ -76,35 +76,35 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // titleTB
+            // titleTxtBox
             // 
-            this.titleTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.titleTxtBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleTB.BackColor = System.Drawing.SystemColors.Control;
-            this.titleTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.titleTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleTB.Location = new System.Drawing.Point(146, 255);
-            this.titleTB.MaxLength = 255;
-            this.titleTB.Name = "titleTB";
-            this.titleTB.ReadOnly = true;
-            this.titleTB.Size = new System.Drawing.Size(426, 22);
-            this.titleTB.TabIndex = 5;
+            this.titleTxtBox.BackColor = System.Drawing.SystemColors.Control;
+            this.titleTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titleTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleTxtBox.Location = new System.Drawing.Point(146, 255);
+            this.titleTxtBox.MaxLength = 255;
+            this.titleTxtBox.Name = "titleTxtBox";
+            this.titleTxtBox.ReadOnly = true;
+            this.titleTxtBox.Size = new System.Drawing.Size(426, 22);
+            this.titleTxtBox.TabIndex = 5;
             // 
-            // dateBox
+            // dateTxtBox
             // 
-            this.dateBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dateTxtBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateBox.BackColor = System.Drawing.SystemColors.Control;
-            this.dateBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dateBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateBox.Location = new System.Drawing.Point(146, 283);
-            this.dateBox.MaxLength = 255;
-            this.dateBox.Name = "dateBox";
-            this.dateBox.ReadOnly = true;
-            this.dateBox.Size = new System.Drawing.Size(426, 22);
-            this.dateBox.TabIndex = 6;
+            this.dateTxtBox.BackColor = System.Drawing.SystemColors.Control;
+            this.dateTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dateTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTxtBox.Location = new System.Drawing.Point(146, 283);
+            this.dateTxtBox.MaxLength = 255;
+            this.dateTxtBox.Name = "dateTxtBox";
+            this.dateTxtBox.ReadOnly = true;
+            this.dateTxtBox.Size = new System.Drawing.Size(426, 22);
+            this.dateTxtBox.TabIndex = 6;
             // 
             // lblTitle
             // 
@@ -422,14 +422,15 @@
             this.Controls.Add(this.lablCategory);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.dateBox);
-            this.Controls.Add(this.titleTB);
+            this.Controls.Add(this.dateTxtBox);
+            this.Controls.Add(this.titleTxtBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FileWorx";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FileWorx";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.FileWorx_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -449,8 +450,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox titleTB;
-        private System.Windows.Forms.TextBox dateBox;
+        private System.Windows.Forms.TextBox titleTxtBox;
+        private System.Windows.Forms.TextBox dateTxtBox;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lablCategory;

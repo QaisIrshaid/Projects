@@ -13,12 +13,7 @@ namespace FileWorx
 {
     public partial class Login : Form
     {
-        private static string mainDirectoryPath = Directory.GetCurrentDirectory();
 
-        //removing (/bin/debug) to get to FileWorx as the main folder.
-        private static string requiredDirectoryPath = Directory.GetParent(Directory.GetParent(mainDirectoryPath).ToString()).ToString();
-
-        private readonly string complexSeparator = "%%$$##";
         public Login()
         {
             InitializeComponent();
@@ -26,33 +21,33 @@ namespace FileWorx
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
-            string path = requiredDirectoryPath + @"\Users\";
+            string path = Constants.GetDirectory() + @"\Users\";
             string[] entries = Directory.GetFileSystemEntries(path);
 
             foreach (string item in entries)
             {
                 string[] file = File.ReadAllLines(item);
-                string[] attributes = file[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
 
-                if (attributes[1] == txtBox_Username.Text && attributes[2] == txtBox_Password.Text)
+                if (objectAttributes[1] == txtBox_Username.Text && objectAttributes[2] == txtBox_Password.Text)
                 {
-
                     FileWorx fileWorx = new FileWorx(Path.GetFileName(item));
                     fileWorx.Show();
                     this.Hide();
                     break;
-
                 }
-
             }
-
             warning.Text = "Wrong login name or password \n Please try again";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

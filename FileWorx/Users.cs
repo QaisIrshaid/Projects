@@ -12,11 +12,7 @@ namespace FileWorx
 {
     public partial class Users : Form
     {
-        private static string mainDirectoryPath = Directory.GetCurrentDirectory();
 
-        //removing (/bin/debug) to get to FileWorx as the main folder.
-        private String requiredDirectoryPath = Directory.GetParent(Directory.GetParent(mainDirectoryPath).ToString()).ToString();
-        private readonly string complexSeparator = "%%$$##";
         public Users()
         {
             InitializeComponent();
@@ -29,28 +25,26 @@ namespace FileWorx
 
         private void Users_Load(object sender, EventArgs e)
         {
-            String path = requiredDirectoryPath + @"\Users\";
-            String[] items = Directory.GetFileSystemEntries(path);
+            string path = Constants.GetDirectory() + @"\Users\";
+            string[] entries = Directory.GetFileSystemEntries(path);
 
-            
-            for (int i = 0; i < items.Length; i++)
+
+            for (int i = 0; i < entries.Length; i++)
             {
+                string[] file = File.ReadAllLines(entries[i]);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                FileInfo inf = new FileInfo(entries[i]);
+                DateTime date = inf.CreationTime;
 
-                String[] files = File.ReadAllLines(items[i]);
-                String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-                FileInfo inf = new FileInfo(items[i]);
-                DateTime dt = inf.CreationTime;
+                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory() + @"\Users\" + objectAttributes[3]);
+                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
 
-                String[] useId = File.ReadAllLines(requiredDirectoryPath + @"\Users\" + sep[3]);
-                String[] sep2 = useId[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-
-                ListViewItem item1 = new ListViewItem(sep[0]);
+                ListViewItem item1 = new ListViewItem(objectAttributes[0]);
                 item1.Checked = true;
-                item1.SubItems.Add(sep[1]);
-                item1.SubItems.Add(sep2[0]);
-                item1.SubItems.Add(dt.ToString());
+                item1.SubItems.Add(objectAttributes[1]);
+                item1.SubItems.Add(lastModifierAttributes[0]);
+                item1.SubItems.Add(date.ToString());
                 listView1.Items.Add(item1);
-
             }
         }
 

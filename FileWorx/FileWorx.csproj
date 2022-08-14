@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="FileWorx.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,23 +59,23 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewNews.cs">
+    <Compile Include="AddNews.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewNews.Designer.cs">
-      <DependentUpon>NewNews.cs</DependentUpon>
+    <Compile Include="AddNews.Designer.cs">
+      <DependentUpon>AddNews.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewPhoto.cs">
+    <Compile Include="AddPhoto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewPhoto.Designer.cs">
-      <DependentUpon>NewPhoto.cs</DependentUpon>
+    <Compile Include="AddPhoto.Designer.cs">
+      <DependentUpon>AddPhoto.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewUser.cs">
+    <Compile Include="AddUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewUser.Designer.cs">
-      <DependentUpon>NewUser.cs</DependentUpon>
+    <Compile Include="AddUser.Designer.cs">
+      <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,14 +91,14 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewNews.resx">
-      <DependentUpon>NewNews.cs</DependentUpon>
+    <EmbeddedResource Include="AddNews.resx">
+      <DependentUpon>AddNews.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewPhoto.resx">
-      <DependentUpon>NewPhoto.cs</DependentUpon>
+    <EmbeddedResource Include="AddPhoto.resx">
+      <DependentUpon>AddPhoto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewUser.resx">
-      <DependentUpon>NewUser.cs</DependentUpon>
+    <EmbeddedResource Include="AddUser.resx">
+      <DependentUpon>AddUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

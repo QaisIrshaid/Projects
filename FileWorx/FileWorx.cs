@@ -17,115 +17,99 @@ namespace FileWorx
 
         private string id;
 
-        private static string mainDirectoryPath = Directory.GetCurrentDirectory();
-        //removing (/bin/debug) to get to FileWorx as the main folder.
-        private string requiredDirectoryPath = Directory.GetParent(Directory.GetParent(mainDirectoryPath).ToString()).ToString();
-
-        private readonly string complexSeparator = "%%$$##";
-
-        public FileWorx(String id)
+        public FileWorx(string id)
         {
             InitializeComponent();
             this.id = id;
-            load();
-
+            dataGridViewLoad();
         }
 
-        private void load()
+        private void dataGridViewLoad()
         {
-
-            string path = requiredDirectoryPath + @"\News\";
-            string[] items = Directory.GetFileSystemEntries(path);
+            string path = Constants.GetDirectory() + @"\News\";
+            string[] entries = Directory.GetFileSystemEntries(path);
             string[] row;
 
-            for (int i = 0; i < items.Length; i++)
+            for (int i = 0; i < entries.Length; i++)
             {
+                string[] file = File.ReadAllLines(entries[i]);
+                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                FileInfo fileInfo = new FileInfo(entries[i]);
+                DateTime date = fileInfo.CreationTime;
+                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory() + @"\Users\" + ObjectAttributes[3]);
+                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
 
-                string[] files = File.ReadAllLines(items[i]);
-                string[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-                FileInfo inf = new FileInfo(items[i]);
-                DateTime dt = inf.CreationTime;
-                string[] useId = File.ReadAllLines(requiredDirectoryPath + @"\Users\" + sep[3]);
-                string[] sep2 = useId[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-                row = new string[] { sep[0], dt.ToString(), sep[1], sep2[0], i.ToString() };
+                                  //       Title           Creation Date      Description              Last Modifier       Object Index
+                row = new string[] { ObjectAttributes[0], date.ToString(), ObjectAttributes[1], lastModifierAttributes[0], i.ToString() };
                 grid.Rows.Add(row);
-
             }
         }
+
         public void Refrech()
         {
             grid.Rows.Clear();
-            titleTB.Text = dateBox.Text = category.Text = richBox2.Text = richBox.Text = picBox.ImageLocation = "";
-            dateBox.Text = "";
-            category.Text = "";
-            richBox2.Text = "";
-            richBox.Text = "";
-            picBox.ImageLocation = "";
-            load();
+            titleTxtBox.Text = dateTxtBox.Text = category.Text = richBox2.Text = richBox.Text = picBox.ImageLocation = "";
+            tabControl2.Show();
+            dataGridViewLoad();
         }
-
 
         private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex != -1)
             {
+                string path = Constants.GetDirectory() + @"\News\";
+                string[] entries = Directory.GetFileSystemEntries(path);
+                int objectIndex = Convert.ToInt32(grid.Rows[e.RowIndex].Cells[4].Value.ToString());         
+                string[] file = File.ReadAllLines(entries[objectIndex]);
+                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
 
-                string path = requiredDirectoryPath + @"\News\";
-                string[] items = Directory.GetFileSystemEntries(path);
-                object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
-                //MessageBox.Show(Convert.ToInt32(s3.ToString()).ToString());
-                string[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
-                //MessageBox.Show(e.RowIndex.ToString()+"   "+s3.ToString());
-                string[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-
-                if (sep[4] == "non")
+                if (ObjectAttributes[4] == Constants.NewsFlag())
                 {
-
-                    object s1 = grid.Rows[e.RowIndex].Cells[0].Value;
-                    object s2 = grid.Rows[e.RowIndex].Cells[1].Value;
+                    string title = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string creationDate = grid.Rows[e.RowIndex].Cells[1].Value.ToString();
 
                     category.Show();
                     lablCategory.Show();
                     tabControl1.Hide();
                     tabControl2.Show();
 
-                    titleTB.Text = s1.ToString();
-                    dateBox.Text = s2.ToString();
-                    category.Text = sep[2];
-                    richBox2.Text = sep[5];
+                    titleTxtBox.Text = title;
+                    dateTxtBox.Text = creationDate;
+                    category.Text = ObjectAttributes[2];
+                    richBox2.Text = ObjectAttributes[5];
 
                     int i = 1;
-                    while (i < files.Length)
-                    { richBox2.Text += "\n" + files[i]; i++; }
-
+                    while (i < file.Length)
+                    { 
+                        richBox2.Text += "\n" + file[i];
+                        i++; 
+                    }
                 }
 
                 else
                 {
+                    string title = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string creationDate = grid.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-                    object s1 = grid.Rows[e.RowIndex].Cells[0].Value;
-                    object s2 = grid.Rows[e.RowIndex].Cells[1].Value;
-
-                    titleTB.Text = s1.ToString();
-                    dateBox.Text = s2.ToString();
+                    titleTxtBox.Text = title; 
+                    dateTxtBox.Text = creationDate;
                     category.Hide();
                     lablCategory.Hide();
 
                     tabControl1.Show();
                     tabControl2.Hide();
-                    richBox.Text = sep[5];
-                    picBox.ImageLocation = (sep[2]);
+                    richBox.Text = ObjectAttributes[5];
+                    picBox.ImageLocation = (ObjectAttributes[2]);
+
                     int i = 1;
-                    while (i < files.Length)
-                    { richBox.Text += "\n" + files[i]; i++; }
-
+                    while (i < file.Length)
+                    {                   
+                        richBox.Text += "\n" + file[i]; 
+                        i++; 
+                    }
                 }
-
             }
-
             else return;
-
         }
 
 
@@ -133,30 +117,24 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                String path = requiredDirectoryPath + @"\News\";
-                String[] items = Directory.GetFileSystemEntries(path);
-                object s3 = grid.Rows[e.RowIndex].Cells[4].Value;
-                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
-                String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
+                string path = Constants.GetDirectory() + @"\News\";
+                string[] entries = Directory.GetFileSystemEntries(path);
+                int objectIndex = Convert.ToInt32(grid.Rows[e.RowIndex].Cells[4].Value.ToString());
+                string[] file = File.ReadAllLines(entries[objectIndex]);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
 
-                if (sep[4] == "non")
+                if (objectAttributes[4] == Constants.NewsFlag())
                 {
-
-                    //this.Hide();
-                    NewNews old = new NewNews(this.id);
-                    old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+                    AddNews news = new AddNews(this.id);
+                    news.fill(entries[objectIndex]);
                     Refrech();
-
                 }
 
                 else
                 {
-
-                    //this.Hide();
-                    NewPhoto old = new NewPhoto(this.id);
-                    old.fill(items[Convert.ToInt32(s3.ToString())].ToString());
+                    AddPhoto photo = new AddPhoto(this.id);
+                    photo.fill(entries[objectIndex]);
                     Refrech();
-
                 }
             }
             else return;
@@ -164,24 +142,22 @@ namespace FileWorx
 
         private void addNewsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewNews news = new NewNews(this.id);
+            AddNews news = new AddNews(this.id);
             news.ShowDialog();
             Refrech();
-
         }
 
         private void addPhotosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewPhoto photo = new NewPhoto(this.id);
+            AddPhoto photo = new AddPhoto(this.id);
             photo.ShowDialog();
             Refrech();
         }
 
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewUser user = new NewUser(this.id);
+            AddUser user = new AddUser(this.id);
             user.ShowDialog();
-            Refrech();
         }
 
         private int rowIndex = 0;
@@ -202,30 +178,24 @@ namespace FileWorx
         {
             if (!this.grid.Rows[this.rowIndex].IsNewRow)
             {
-                object s3 = grid.Rows[this.rowIndex].Cells[4].Value;
-                this.grid.Rows.RemoveAt(this.rowIndex);
-                String path = requiredDirectoryPath + @"\News\";
-                String[] items = Directory.GetFileSystemEntries(path);
-                String[] files = File.ReadAllLines(items[Convert.ToInt32(s3.ToString())]);
-                String[] sep = files[0].Split(new string[] { complexSeparator }, StringSplitOptions.None);
-                files[0] = null;
-                if (sep[4] == "non")
+                int objectIndex = Convert.ToInt32(grid.Rows[this.rowIndex].Cells[4].Value);
+                string path = Constants.GetDirectory() + @"\News\";
+                string[] entries = Directory.GetFileSystemEntries(path);
+                string[] file = File.ReadAllLines(entries[objectIndex]);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                file[0] = null;
+
+                if (objectAttributes[4] == Constants.NewsFlag())
                 {
-
-                    File.Delete(items[Convert.ToInt32(s3.ToString())]);
-
+                    File.Delete(entries[objectIndex]);
                 }
                 else
                 {
-
-                    File.Delete(sep[2]);
-                    File.Delete(items[Convert.ToInt32(s3.ToString())]);
-
+                    File.Delete(objectAttributes[2]);
+                    File.Delete(entries[objectIndex]);
                 }
-
-                Refresh();
+                Refrech();
             }
-
         }
 
         private void sittingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -235,30 +205,26 @@ namespace FileWorx
 
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             Login log = new Login();
             log.Show();
             this.Hide();
-
         }
 
         private void accountSittingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            NewUser old = new NewUser(this.id);
+            AddUser old = new AddUser(this.id);
             old.fill(this.id);
-            Refrech();
-
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             Users user = new Users();
             user.ShowDialog();
-
         }
 
+        private void FileWorx_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
