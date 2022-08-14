@@ -13,7 +13,6 @@ namespace FileWorx
 {
     public partial class Login : Form
     {
-
         public Login()
         {
             InitializeComponent();
@@ -21,13 +20,13 @@ namespace FileWorx
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string path = Constants.GetDirectory() + @"\Users\";
+            string path = Constants.GetDirectory + @"\Users\";
             string[] entries = Directory.GetFileSystemEntries(path);
 
             foreach (string item in entries)
             {
                 string[] file = File.ReadAllLines(item);
-                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
                 if (objectAttributes[1] == txtBox_Username.Text && objectAttributes[2] == txtBox_Password.Text)
                 {

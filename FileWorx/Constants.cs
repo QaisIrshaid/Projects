@@ -9,25 +9,22 @@ namespace FileWorx
 {
     public static class Constants
     {
-        public static string GetDirectory()
-        {
-            //removing /bin/Debug path to get to FileWorx Folder.
-            return Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString();
-        }
+        //removing /bin/Debug path to get to FileWorx Folder.
+        private static string GetDirectory_ = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString();
+        public static string GetDirectory { get => GetDirectory_; set => GetDirectory_ = value; }
+       
+     
+        private static string ComplexSeparator_="%%$$##";
+        public static string ComplexSeparator { get => ComplexSeparator_; set => ComplexSeparator_ = value; }
 
-        public static string ComplexSeparator()
-        {
-            return "%%$$##";
-        }
 
-        public static string NewsFlag()
-        {
-            return "newsFlag";
-        }
+        private static string NewsFlag_ = "newsFlag";
+        public static string NewsFlag { get=> NewsFlag_; set=> NewsFlag_=value; }
 
-        public static string PhotoFlag()
-        {
-            return "photoFlag";
-        }
+
+        private static string PhotoFlag_ = "newsFlag";
+        public static string PhotoFlag { get => PhotoFlag_; set => PhotoFlag_ = value; }
+
+       
     }
 }

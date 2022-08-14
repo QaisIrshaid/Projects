@@ -27,11 +27,11 @@ namespace FileWorx
 
         }
 
-        public void fill(string path)
+        public void Fill(string path)
         {
             oldPath = path;
             string[] file = File.ReadAllLines(path);
-            string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+            string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
             file[0] = null;
 
             titleTB.Text = objectAttributes[0];
@@ -72,7 +72,7 @@ namespace FileWorx
         {
             if (titleLbl.Text == "" || descriptionTB.Text == "" || body.Text == "" || pictureBox1.ImageLocation == null)
             {
-                MessageBox.Show("Please fill all the arguments to proceed");
+                MessageBox.Show("Please Fill all the arguments to proceed");
             }
 
             else
@@ -81,7 +81,7 @@ namespace FileWorx
                 {
                     //if oldPath is null then create a new file.
 
-                    string destinationPath = Path.Combine(Constants.GetDirectory() + @"\Photos\", Path.GetFileName(photoPath.Text));
+                    string destinationPath = Path.Combine(Constants.GetDirectory + @"\Photos\", Path.GetFileName(photoPath.Text));
                     try
                     {
                         File.Copy(photoPath.Text, destinationPath);
@@ -92,13 +92,13 @@ namespace FileWorx
                         //if Photos folder already contains a photo with the same name, then rename the cuurent photo.
 
                         string pictureName = Path.GetFileNameWithoutExtension(photoPath.Text) + "2" + Path.GetExtension(photoPath.Text);
-                        destinationPath = Path.Combine(Constants.GetDirectory() + @"\Photos\", pictureName);
+                        destinationPath = Path.Combine(Constants.GetDirectory + @"\Photos\", pictureName);
                         File.Copy(photoPath.Text, destinationPath);
                     }
 
-                    string fileName = Constants.GetDirectory() + @"\News\" + Guid.NewGuid().ToString() + ".txt";
+                    string fileName = Constants.GetDirectory + @"\News\" + Guid.NewGuid().ToString() + ".txt";
                     StreamWriter streamWriter = new StreamWriter(fileName);
-                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator() + descriptionTB.Text + Constants.ComplexSeparator() + destinationPath + Constants.ComplexSeparator() + id + Constants.ComplexSeparator() + Constants.PhotoFlag() + Constants.ComplexSeparator() + body.Text);
+                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator + descriptionTB.Text + Constants.ComplexSeparator + destinationPath + Constants.ComplexSeparator + id + Constants.ComplexSeparator + Constants.PhotoFlag + Constants.ComplexSeparator + body.Text);
                     streamWriter.Flush();
                     streamWriter.Close();
 
@@ -110,10 +110,10 @@ namespace FileWorx
                     //if oldPath has a value then write on the same file.
 
                     string[] file = File.ReadAllLines(oldPath);
-                    string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                    string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                     file[0] = null;
 
-                    string destinationPath = Path.Combine(Constants.GetDirectory() + @"\Photos\", Path.GetFileName(photoPath.Text));
+                    string destinationPath = Path.Combine(Constants.GetDirectory + @"\Photos\", Path.GetFileName(photoPath.Text));
                     try
                     {
                         File.Copy(photoPath.Text, destinationPath);
@@ -123,7 +123,7 @@ namespace FileWorx
                     catch { }
 
                     StreamWriter streamWriter = new StreamWriter(oldPath);
-                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator() + descriptionTB.Text + Constants.ComplexSeparator() + destinationPath + Constants.ComplexSeparator() + id + Constants.ComplexSeparator() + Constants.PhotoFlag() + Constants.ComplexSeparator() + body.Text);
+                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator + descriptionTB.Text + Constants.ComplexSeparator + destinationPath + Constants.ComplexSeparator + id + Constants.ComplexSeparator + Constants.PhotoFlag + Constants.ComplexSeparator + body.Text);
                     streamWriter.Flush();
                     streamWriter.Close();
 

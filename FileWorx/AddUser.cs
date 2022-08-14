@@ -26,16 +26,16 @@ namespace FileWorx
         {
             if (name.Text == "" || loginName.Text == "" || password.Text == "")
             {            
-                MessageBox.Show("Please fill all the arguments to proceed");            
+                MessageBox.Show("Please Fill all the arguments to proceed");            
             }
             else
             {
                 if (oldPath == null)
                 {
-                    string fileName = Constants.GetDirectory() + @"\Users\" + Guid.NewGuid().ToString() + ".txt";
+                    string fileName = Constants.GetDirectory + @"\Users\" + Guid.NewGuid().ToString() + ".txt";
 
                     StreamWriter streamWriter = new StreamWriter(fileName);
-                    streamWriter.WriteLine(name.Text + Constants.ComplexSeparator() + loginName.Text + Constants.ComplexSeparator() + password.Text + Constants.ComplexSeparator() + this.id);
+                    streamWriter.WriteLine(name.Text + Constants.ComplexSeparator + loginName.Text + Constants.ComplexSeparator + password.Text + Constants.ComplexSeparator + this.id);
                     streamWriter.Flush();
                     streamWriter.Close();
 
@@ -45,7 +45,7 @@ namespace FileWorx
                 else
                 {
                     StreamWriter streamWriter = new StreamWriter(oldPath);
-                    streamWriter.WriteLine(name.Text + Constants.ComplexSeparator() + loginName.Text + Constants.ComplexSeparator() + password.Text + Constants.ComplexSeparator() + this.id);
+                    streamWriter.WriteLine(name.Text + Constants.ComplexSeparator + loginName.Text + Constants.ComplexSeparator + password.Text + Constants.ComplexSeparator + this.id);
                     streamWriter.Flush();
                     streamWriter.Close();
 
@@ -65,13 +65,13 @@ namespace FileWorx
             
         }
 
-        public void fill(string path)
+        public void Fill(string path)
         {
-            path = Constants.GetDirectory() + @"\Users\" + path;
+            path = Constants.GetDirectory + @"\Users\" + path;
             oldPath = path;
 
             string[] file = File.ReadAllLines(path);
-            string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+            string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
             name.Text = objectAttributes[0];
             loginName.Text = objectAttributes[1];

@@ -21,23 +21,23 @@ namespace FileWorx
         {
             InitializeComponent();
             this.id = id;
-            dataGridViewLoad();
+            DataGridViewLoad();
         }
 
-        private void dataGridViewLoad()
+        private void DataGridViewLoad()
         {
-            string path = Constants.GetDirectory() + @"\News\";
+            string path = Constants.GetDirectory + @"\News\";
             string[] entries = Directory.GetFileSystemEntries(path);
             string[] row;
 
             for (int i = 0; i < entries.Length; i++)
             {
                 string[] file = File.ReadAllLines(entries[i]);
-                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                 FileInfo fileInfo = new FileInfo(entries[i]);
                 DateTime date = fileInfo.CreationTime;
-                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory() + @"\Users\" + ObjectAttributes[3]);
-                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory + @"\Users\" + ObjectAttributes[3]);
+                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
                                   //       Title           Creation Date      Description              Last Modifier       Object Index
                 row = new string[] { ObjectAttributes[0], date.ToString(), ObjectAttributes[1], lastModifierAttributes[0], i.ToString() };
@@ -47,23 +47,25 @@ namespace FileWorx
 
         public void Refrech()
         {
-            grid.Rows.Clear();
-            titleTxtBox.Text = dateTxtBox.Text = category.Text = richBox2.Text = richBox.Text = picBox.ImageLocation = "";
-            tabControl2.Show();
-            dataGridViewLoad();
+             grid.Rows.Clear();
+             titleTxtBox.Text = dateTxtBox.Text = category.Text = richBox2.Text = richBox.Text = picBox.ImageLocation = "";
+             tabControl2.Show();
+             DataGridViewLoad();
+            
+            //grid.Invalidate();grid.Refresh();
         }
 
         private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                string path = Constants.GetDirectory() + @"\News\";
+                string path = Constants.GetDirectory + @"\News\";
                 string[] entries = Directory.GetFileSystemEntries(path);
                 int objectIndex = Convert.ToInt32(grid.Rows[e.RowIndex].Cells[4].Value.ToString());         
                 string[] file = File.ReadAllLines(entries[objectIndex]);
-                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] ObjectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
-                if (ObjectAttributes[4] == Constants.NewsFlag())
+                if (ObjectAttributes[4] == Constants.NewsFlag)
                 {
                     string title = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
                     string creationDate = grid.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -109,6 +111,7 @@ namespace FileWorx
                     }
                 }
             }
+
             else return;
         }
 
@@ -117,26 +120,27 @@ namespace FileWorx
         {
             if (e.RowIndex != -1)
             {
-                string path = Constants.GetDirectory() + @"\News\";
+                string path = Constants.GetDirectory + @"\News\";
                 string[] entries = Directory.GetFileSystemEntries(path);
                 int objectIndex = Convert.ToInt32(grid.Rows[e.RowIndex].Cells[4].Value.ToString());
                 string[] file = File.ReadAllLines(entries[objectIndex]);
-                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
-                if (objectAttributes[4] == Constants.NewsFlag())
+                if (objectAttributes[4] == Constants.NewsFlag)
                 {
                     AddNews news = new AddNews(this.id);
-                    news.fill(entries[objectIndex]);
+                    news.Fill(entries[objectIndex]);
                     Refrech();
                 }
 
                 else
                 {
                     AddPhoto photo = new AddPhoto(this.id);
-                    photo.fill(entries[objectIndex]);
+                    photo.Fill(entries[objectIndex]);
                     Refrech();
                 }
             }
+
             else return;
         }
 
@@ -179,13 +183,13 @@ namespace FileWorx
             if (!this.grid.Rows[this.rowIndex].IsNewRow)
             {
                 int objectIndex = Convert.ToInt32(grid.Rows[this.rowIndex].Cells[4].Value);
-                string path = Constants.GetDirectory() + @"\News\";
+                string path = Constants.GetDirectory + @"\News\";
                 string[] entries = Directory.GetFileSystemEntries(path);
                 string[] file = File.ReadAllLines(entries[objectIndex]);
-                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                 file[0] = null;
 
-                if (objectAttributes[4] == Constants.NewsFlag())
+                if (objectAttributes[4] == Constants.NewsFlag)
                 {
                     File.Delete(entries[objectIndex]);
                 }
@@ -213,7 +217,7 @@ namespace FileWorx
         private void accountSittingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddUser old = new AddUser(this.id);
-            old.fill(this.id);
+            old.Fill(this.id);
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)

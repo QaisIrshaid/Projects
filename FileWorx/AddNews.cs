@@ -36,7 +36,7 @@ namespace FileWorx
         {
             if (titleLbl.Text == "" || descriptionTB.Text == "" || categoryComboBox.Text == "" || body.Text == "")
             { 
-                MessageBox.Show("Please fill all the arguments to proceed");
+                MessageBox.Show("Please Fill all the arguments to proceed");
             }
 
             else
@@ -45,9 +45,9 @@ namespace FileWorx
                 {
                     //if oldPath is null then create a new file.
 
-                    string fileName = Constants.GetDirectory() + @"\News\" + Guid.NewGuid().ToString() + ".txt";
+                    string fileName = Constants.GetDirectory + @"\News\" + Guid.NewGuid().ToString() + ".txt";
                     StreamWriter streamWriter = new StreamWriter(fileName);
-                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator() + descriptionTB.Text + Constants.ComplexSeparator() + categoryComboBox.Text + Constants.ComplexSeparator() + id + Constants.ComplexSeparator() + Constants.NewsFlag() + Constants.ComplexSeparator() + body.Text);
+                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator + descriptionTB.Text + Constants.ComplexSeparator + categoryComboBox.Text + Constants.ComplexSeparator + id + Constants.ComplexSeparator + Constants.NewsFlag + Constants.ComplexSeparator + body.Text);
                     streamWriter.Flush();
                     streamWriter.Close();
 
@@ -59,7 +59,7 @@ namespace FileWorx
                     //if oldPath has a value then write on the same file.
 
                     StreamWriter streamWriter = new StreamWriter(oldPath);
-                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator() + descriptionTB.Text + Constants.ComplexSeparator() + categoryComboBox.Text + Constants.ComplexSeparator() + id + Constants.ComplexSeparator() + Constants.NewsFlag() + Constants.ComplexSeparator() + body.Text);
+                    streamWriter.WriteLine(titleTB.Text + Constants.ComplexSeparator + descriptionTB.Text + Constants.ComplexSeparator + categoryComboBox.Text + Constants.ComplexSeparator + id + Constants.ComplexSeparator + Constants.NewsFlag + Constants.ComplexSeparator + body.Text);
                     streamWriter.Flush();
                     streamWriter.Close();
 
@@ -69,11 +69,11 @@ namespace FileWorx
             }
         }
 
-        public void fill(string path)
+        public void Fill(string path)
         {
             oldPath = path;
             String[] file = File.ReadAllLines(path);
-            String[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+            String[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
             titleTB.Text = objectAttributes[0];
             descriptionTB.Text = objectAttributes[1];

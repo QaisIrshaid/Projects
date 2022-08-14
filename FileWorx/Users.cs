@@ -25,19 +25,19 @@ namespace FileWorx
 
         private void Users_Load(object sender, EventArgs e)
         {
-            string path = Constants.GetDirectory() + @"\Users\";
+            string path = Constants.GetDirectory + @"\Users\";
             string[] entries = Directory.GetFileSystemEntries(path);
 
 
             for (int i = 0; i < entries.Length; i++)
             {
                 string[] file = File.ReadAllLines(entries[i]);
-                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                 FileInfo inf = new FileInfo(entries[i]);
                 DateTime date = inf.CreationTime;
 
-                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory() + @"\Users\" + objectAttributes[3]);
-                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator() }, StringSplitOptions.None);
+                string[] lastModifierObject = File.ReadAllLines(Constants.GetDirectory + @"\Users\" + objectAttributes[3]);
+                string[] lastModifierAttributes = lastModifierObject[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
 
                 ListViewItem item1 = new ListViewItem(objectAttributes[0]);
                 item1.Checked = true;
