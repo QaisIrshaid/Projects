@@ -1,0 +1,55 @@
+﻿@model string[]
+
+<h3>Add News :</h3>
+
+<div class="text-right">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+<br />
+@using (Html.BeginForm("PostNews", "AddNews", FormMethod.Post))
+{
+    <div >
+        <table>
+            <tr>
+                <td class="lead">Title</td>
+                <td>
+                    <input id="title" name="Title" type="text" required />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="lead">Description</td>
+                <td>
+                    <input id="description" name="Description" type="text" required />
+                </td>
+            </tr>
+            <tr>
+                <td class="lead">Category</td>
+                <td>
+                    <select name="Category" required>
+                        <option value="General">General</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Health">Health</option>
+                        <option value="Politics">Politics</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="lead">Body</td>
+                <td>
+                    <textarea cols="40" rows="8" name="Body" required></textarea>
+                </td>
+            </tr>
+
+        </table>
+        <div id="HiddenInputs">
+            <input type="hidden" value="@Model[0]" Name="NewsFlag" />
+            <input type="hidden" value="@Model[1]" Name="LastModifierFileName" />
+        </div>
+    </div>
+    <br />
+    <div class="text-center">
+        <input type="submit" value="Submit" class="btn btn-lg btn-default text-center" />
+
+    </div>
+}
+
+

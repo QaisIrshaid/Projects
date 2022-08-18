@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/ViewPage1.cshtml";
+}
+
+    <h1 class="text-center">FileWorx </h1>
+    <br />
+    <hr />
+    <br />
+    @using (Html.BeginForm("PostLogin", "Login", FormMethod.Post))
+    {
+        <div>
+            <table>
+                <tr>
+                    
+                    <td>                     
+                            <label for="loginname">Username : </label>
+                            <input id="loginname" name="LoginName" type="text" />                      
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="password">Password : </label>
+                        <input id="password" name="Password" type="password" />
+                    </td>
+                </tr>
+
+            </table>
+            <br />
+            <div class="text-center"><input type="submit" value="Login" class="btn btn-lg btn-default text-center" /></div>
+        </div>
+    }
+
+

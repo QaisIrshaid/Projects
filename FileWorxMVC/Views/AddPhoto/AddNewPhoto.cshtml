@@ -1,0 +1,78 @@
+﻿@model string[]
+
+@{
+    ViewBag.Title = "GetPhoto";
+}
+
+
+<h3>Add Photo : </h3>
+<div class="text-right">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+<br />
+@using (Html.BeginForm("PostPhoto", "AddPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div>
+                <table>
+                    <tr>
+                        <td class="lead">Title</td>
+                        <td>
+                            <input id="title" name="Title" type="text" required />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="lead">Description</td>
+                        <td>
+                            <input id="description" name="Description" type="text" required />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="lead">Body</td>
+                        <td>
+                            <textarea cols="40" rows="8" name="Body" required></textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <img id="imagesrc" src="#" alt="Chose an image " width="500" height="300" />
+                        </td>
+
+                        <td>
+                            <div class="text-center"><input type="file" name="ImageFile" required id="imgInp" /></div>
+
+                        </td>
+                    </tr>
+
+                </table>
+                <div id="HiddenInputs">
+                    <input type="hidden" name="PhotoName" id="photoName" />
+                    <input type="hidden" name="LastModifierFileName" value="@Model[0]" />
+                    <input type="hidden" name="PhotoFlag" value="@Model[1]" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <input type="submit" value="Create" class="btn btn-lg btn-default text-center" />
+
+
+    </div>
+}
+
+<script>
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            imagesrc.src = URL.createObjectURL(file)
+            var date = new Date()
+            var imageName = date.getTime() + imgInp.files[0].name;
+            photoName.setAttribute("value", imageName)
+        }
+    }
+</script>

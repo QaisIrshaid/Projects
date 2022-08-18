@@ -1,0 +1,42 @@
+﻿@model string[]
+    <h3>Add User : </h3>
+    <div class="text-right">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+    <br />
+    @using (Html.BeginForm("PostUser", "AddUser", FormMethod.Post))
+    {
+        <div>
+            <table>
+                <tr>
+                    <td class="lead">Name</td>
+                    <td>
+                        <input id="name" name="Name" type="text" required />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lead">Login Name</td>
+                    <td>
+                        <input id="loginName" name="LoginName" type="text" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lead">Password</td>
+                    <td>
+                        <input id="password" name="Password" type="password" required />
+                    </td>
+                </tr>
+
+            </table>
+            <div id="HiddenInputs">
+                <input type="hidden" name="LastModifierFileName" value="@Model[0]" />
+            </div>
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="submit" value="Submit" class="btn btn-lg btn-default text-center" />
+
+        </div>
+    }
+
+
+

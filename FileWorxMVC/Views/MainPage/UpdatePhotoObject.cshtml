@@ -1,0 +1,75 @@
+﻿
+@model string[]
+<h3>Update @Model[0] : </h3>
+<div class="text-right">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+<br />
+
+@using (Html.BeginForm("UpdatePhoto", "AddPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div>
+                <table>
+                    <tr>
+                        <td class="lead">Title</td>
+                        <td>
+                            <input id="title" name="Title" type="text" value="@Model[0]" required />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="lead">Description</td>
+                        <td>
+                            <input id="description" name="Description" type="text" value="@Model[1]" required />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="lead">Body</td>
+                        <td>
+                            <textarea cols="40" rows="8" name="Body" required>@Model[3]</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="imagesrc" src="@Model[2]" alt="your image" width="500" height="300" required />
+                        </td>
+                        <td>
+                            <input type="file" name="ImageFile" id="imgInp" />
+
+                        </td>
+                    </tr>
+                    
+                </table>
+                <div id="HiddenInputs">
+                    <input type="hidden" name="PhotoName" id="photoName" />
+                    <input type="hidden" value="@Model[4]" name="FileDirectory" />
+                    <input type="hidden" value="@Model[2]" name="PhotoDirectory" />
+                    <input type="hidden" value="@Model[5]" name="LastModifierFileName" />
+                    <input type="hidden" value="@Model[6]" name="PhotoFlag" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center">
+        <input type="submit" value="Submit" class="btn btn-lg btn-default text-center" />
+
+    </div>
+}
+
+
+<script>
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            imagesrc.src = URL.createObjectURL(file)
+            var date = new Date()
+            var imageName = date.getTime() + imgInp.files[0].name;
+            photoName.setAttribute("value", imageName)
+        }
+    }
+</script>

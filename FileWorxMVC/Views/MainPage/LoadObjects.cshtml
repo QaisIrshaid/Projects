@@ -1,0 +1,31 @@
+﻿@model List<String[]>
+@using FileWorxMVC.Models
+
+<h3>Hello @Constants.LastModifier</h3>
+
+<div class="text-right">@Html.ActionLink("Logout", "GetLogin", "Login", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+<br />
+<table>
+    <thead>
+        <tr class="lead">
+            <th class="lead">Title</th>
+            <th class="lead">Creation Date</th>
+            <th class="lead">Description</th>
+            <th class="lead">Last Modifier</th>
+            <th class="lead">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (string[] row in Model)
+        {
+            <tr>
+                <td>@row[0]</td>
+                <td>@row[1]</td>
+                <td>@row[2]</td>
+                <td>@row[4]</td>
+                <td>@Html.ActionLink("View", "LoadSpecificObject", new { @id = row[3] }) &nbsp; @Html.ActionLink("Delete", "DeleteObject", new { @id = row[3] }) &nbsp; @Html.ActionLink("Update", "UpdateObject", new { @id = row[3] }) </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

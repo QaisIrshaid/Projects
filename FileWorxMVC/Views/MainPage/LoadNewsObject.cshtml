@@ -1,0 +1,38 @@
+﻿
+@model string[]
+    <h3>View @Model[0] : </h3>
+
+    <div class="text-right">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
+    <br />
+
+    <div>
+        <table>
+            <tr>
+                <td class="lead">Title</td>
+                <td>
+                    @Model[0]
+                </td>
+            </tr>
+
+            <tr>
+                <td class="lead">Description</td>
+                <td>
+                    @Model[1]
+                </td>
+            </tr>
+            <tr>
+                <td class="lead">Category</td>
+                <td>
+                    @Model[2]
+                </td>
+            </tr>
+            <tr>
+                <td class="lead">Body</td>
+                <td>
+                    @Model[3]
+                </td>
+            </tr>
+
+        </table>
+    </div>
+

@@ -1,0 +1,29 @@
+﻿@model List<String[]>
+@using FileWorxMVC.Models
+<h3>All Users : </h3>
+<br />
+<hr />
+<br />
+<table>
+    <thead>
+        <tr>
+            <th class="lead">Name</th>
+            <th class="lead">Login Name</th>
+            <th class="lead">Last Modifier</th>
+            <th class="lead">Creation Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (string[] row in Model)
+        {
+            <tr>
+                <td>@row[0]</td>
+                <td>@row[1]</td>
+                <td>@row[2]</td>
+                <td>@row[3]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<div class="text-center">@Html.ActionLink("Back", "LoadObjects", "MainPage", new { area = "" }, new { @class = "btn btn-lg btn-default text-center" })</div>
