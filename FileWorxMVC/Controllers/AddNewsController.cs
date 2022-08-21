@@ -15,7 +15,7 @@ namespace FileWorxMVC.Controllers
         [HttpGet]
         public ActionResult AddNewNews()
         {
-            return View(new string[] {Constants.NewsFlag,Constants.CurrentUserFileName});
+            return View(new string[] {Constants.NewsFlag,CurrentUser.FileName});
         }
 
         [HttpPost]
@@ -24,7 +24,5 @@ namespace FileWorxMVC.Controllers
             NewsActions.PostNews(news);
             return RedirectToAction("LoadObjects", "MainPage");
         }
-
-  
     }
 }

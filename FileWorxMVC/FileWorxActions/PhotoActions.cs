@@ -9,9 +9,9 @@ namespace FileWorxMVC.FileWorxActions
     {
         public static void PostPhoto(Photo photo)
         {
-            string photoPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Photos/"), photo.PhotoName);
+            string photoPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.PhotosFolder), photo.PhotoName);
             photo.ImageFile.SaveAs(photoPath);
-            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/" + Guid.NewGuid().ToString() + ".txt");
+            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder + Guid.NewGuid().ToString() + ".txt");
 
             var userData = photo.Title + Constants.ComplexSeparator + photo.Description +
             Constants.ComplexSeparator + photo.PhotoName + Constants.ComplexSeparator + photo.LastModifierFileName + Constants.ComplexSeparator +
@@ -25,19 +25,17 @@ namespace FileWorxMVC.FileWorxActions
 
         public static void UpdatePhoto(Photo photo)
         {
-
-
             if (photo.PhotoName != null)
             {
                 //User Changed the photo, Delete the old photo and save the new one.
 
                 System.IO.File.Delete(System.Web.HttpContext.Current.Server.MapPath(Path.Combine("~", photo.PhotoDirectory)));
-                string newPhoto = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Photos/"), photo.PhotoName);
+                string newPhoto = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.PhotosFolder), photo.PhotoName);
                 photo.ImageFile.SaveAs(newPhoto);
             }
             else
             {
-                //User didn't change the photo, keep the old photo and assign porprty PhotoName with it's name.
+                //User didn't change the photo, keep the old photo and assign the PhotoName porprty  with it's name.
 
                 photo.PhotoName = Path.GetFileName(photo.PhotoDirectory);
             }

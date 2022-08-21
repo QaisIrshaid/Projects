@@ -18,12 +18,14 @@ namespace FileWorxMVC.Models
         private static string PhotoFlag_ = "photoFlag";
         public static string PhotoFlag { get => PhotoFlag_; set => PhotoFlag_ = value; }
 
-        private static string LastModifier_;
-        public static string LastModifier { get => LastModifier_; set => LastModifier_ = value; }
+        private static string NewsFolder_="~/News/";
+        public static string NewsFolder { get => NewsFolder_; set => NewsFolder_=value; }
 
-        private static string CurrentUserFileName_;
-        public static string CurrentUserFileName { get => CurrentUserFileName_; set => CurrentUserFileName_ = value; }
+        private static string PhotosFolder_ = "~/Photos/";
+        public static string PhotosFolder { get => PhotosFolder_; set => PhotosFolder_ = value; }
 
+        private static string UsersFolder_ = "~/Users/";
+        public static string UsersFolder { get => UsersFolder_; set => UsersFolder_ = value; }
 
     }
 }

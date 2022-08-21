@@ -9,7 +9,7 @@ namespace FileWorxMVC.FileWorxActions
     {
         public static void PostUser(User user)
         {
-            var userDirectory = System.Web.HttpContext.Current.Server.MapPath("~/Users/" + Guid.NewGuid().ToString() + ".txt");
+            var userDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder + Guid.NewGuid().ToString() + ".txt");
 
             var userData = user.Name + Constants.ComplexSeparator + user.LoginName +
             Constants.ComplexSeparator + user.Password + Constants.ComplexSeparator + user.LastModifierFileName;
@@ -22,7 +22,7 @@ namespace FileWorxMVC.FileWorxActions
 
         public static List<string[]> ViewUsers()
         {
-            string usersDirectory = System.Web.HttpContext.Current.Server.MapPath("~/Users/");
+            string usersDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder);
             string[] entries = Directory.GetFileSystemEntries(usersDirectory);
             List<string[]> allUsers = new List<string[]>();
             for (int i = 0; i < entries.Length; i++)
@@ -31,8 +31,8 @@ namespace FileWorxMVC.FileWorxActions
                 string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                 FileInfo inf = new FileInfo(entries[i]);
                 DateTime date = inf.CreationTime;
-                string username = GetUsername(objectAttributes[3]);                
-                string[] userInfo = new string[] { objectAttributes[0], objectAttributes[1],username, date.ToString() };
+                string lastModifier = GetUsername(objectAttributes[3]);                
+                string[] userInfo = new string[] { objectAttributes[0], objectAttributes[1],lastModifier, date.ToString() };
                 allUsers.Add(userInfo);
             }
             return allUsers;
@@ -40,12 +40,12 @@ namespace FileWorxMVC.FileWorxActions
 
         public static string[] GetUserInfo()
         {
-            string userDirectory = System.Web.HttpContext.Current.Server.MapPath("~/Users/");
+            string userDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder);
             string[] entries = Directory.GetFileSystemEntries(userDirectory);
             string[] userInfo = new string[] { };
             for (int i = 0; i < entries.Length; i++)
             {
-                if (Path.GetFileName(entries[i]) == Constants.CurrentUserFileName)
+                if (Path.GetFileName(entries[i]) == CurrentUser.FileName)
                 {
                     string[] file = System.IO.File.ReadAllLines(entries[i]);
                     string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
@@ -57,11 +57,11 @@ namespace FileWorxMVC.FileWorxActions
 
         public static void PostUserUpdates(User user)
         {
-            string userDirectory = System.Web.HttpContext.Current.Server.MapPath("~/Users/");
+            string userDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder);
             string[] entries = Directory.GetFileSystemEntries(userDirectory);
             for (int i = 0; i < entries.Length; i++)
             {
-                if (Path.GetFileName(entries[i]) == Constants.CurrentUserFileName)
+                if (Path.GetFileName(entries[i]) == CurrentUser.FileName)
                 {
                     var userData = user.Name + Constants.ComplexSeparator + user.LoginName +
                      Constants.ComplexSeparator + user.Password + Constants.ComplexSeparator + user.LastModifierFileName;
@@ -76,7 +76,7 @@ namespace FileWorxMVC.FileWorxActions
 
         public static string GetUsername(string fileName)
         {
-            string userDirectory = System.Web.HttpContext.Current.Server.MapPath("~/Users/");
+            string userDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder);
             string[] entries = Directory.GetFileSystemEntries(userDirectory);
             string username = "";
             for (int i = 0; i < entries.Length; i++)

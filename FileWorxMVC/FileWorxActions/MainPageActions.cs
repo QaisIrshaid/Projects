@@ -11,7 +11,7 @@ namespace FileWorxMVC.FileWorxActions
     {
         public static List<string[]> LoadObjects()
         {
-            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/");
+            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder);
             string[] entries = Directory.GetFileSystemEntries(fileDirectory);
             string[] row;
             List<string[]> allObjects = new List<string[]>();
@@ -22,9 +22,9 @@ namespace FileWorxMVC.FileWorxActions
                 string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
                 FileInfo fileInfo = new FileInfo(entries[i]);
                 DateTime date = fileInfo.CreationTime;
-                string username = UserActions.GetUsername(objectAttributes[3]);
+                string lastModifier = UserActions.GetUsername(objectAttributes[3]);
                 //                        Title         Creation Date         Description        Object Index   Last Modifier
-                row = new string[] { objectAttributes[0], date.ToString(), objectAttributes[1], i.ToString(), username };
+                row = new string[] { objectAttributes[0], date.ToString(), objectAttributes[1], i.ToString(), lastModifier };
                 allObjects.Add(row);
             }
             return allObjects;
@@ -32,7 +32,7 @@ namespace FileWorxMVC.FileWorxActions
 
         public static string[] LoadSpecificObject(int id)
         {
-            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/");
+            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder);
             string[] entries = Directory.GetFileSystemEntries(fileDirectory);
             string[] file = System.IO.File.ReadAllLines(entries[id]);
             string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
@@ -61,7 +61,7 @@ namespace FileWorxMVC.FileWorxActions
 
         public static void DeleteObject(int id)
         {
-            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/");
+            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder);
             string[] entries = Directory.GetFileSystemEntries(fileDirectory);
             string[] file = System.IO.File.ReadAllLines(entries[id]);
             string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
@@ -74,7 +74,7 @@ namespace FileWorxMVC.FileWorxActions
 
             else
             {
-                var photoFile = System.Web.HttpContext.Current.Server.MapPath("~/Photos/");
+                var photoFile = System.Web.HttpContext.Current.Server.MapPath(Constants.PhotosFolder);
                 System.IO.File.Delete(Path.Combine(photoFile, objectAttributes[2]));//Delete the photo
                 System.IO.File.Delete(entries[id]);//delete the text file
             }
@@ -82,7 +82,7 @@ namespace FileWorxMVC.FileWorxActions
 
         public static string[] UpdateObject(int id)
         {
-            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/");
+            var fileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder);
             string[] entries = Directory.GetFileSystemEntries(fileDirectory);
             string[] file = System.IO.File.ReadAllLines(entries[id]);
             string[] objectAttributes = file[0].Split(new string[] { Constants.ComplexSeparator }, StringSplitOptions.None);
@@ -97,17 +97,16 @@ namespace FileWorxMVC.FileWorxActions
             if (objectAttributes[4] == Constants.NewsFlag)
             { 
                 //                                  Title            Description           Category        Body  /File directory/    Last Modifier               NewsFlag
-                string[] row = new string[] { objectAttributes[0], objectAttributes[1], objectAttributes[2], body, entries[id], Constants.CurrentUserFileName, Constants.NewsFlag };
+                string[] row = new string[] { objectAttributes[0], objectAttributes[1], objectAttributes[2], body, entries[id], CurrentUser.FileName, Constants.NewsFlag };
                 return (row);
             }
 
             else
             {
                 //                                  Title            Description                           Photo directory             Body /File directory/     Last Modifier               PhotoFlag
-                string[] row = new string[] { objectAttributes[0], objectAttributes[1], Path.Combine("/Photos/", objectAttributes[2]), body, entries[id], Constants.CurrentUserFileName, Constants.PhotoFlag };
+                string[] row = new string[] { objectAttributes[0], objectAttributes[1], Path.Combine("/Photos/", objectAttributes[2]), body, entries[id], CurrentUser.FileName, Constants.PhotoFlag };
                 return (row);
             }
-
         }
     }
 }

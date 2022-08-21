@@ -14,7 +14,7 @@ namespace FileWorxMVC.Controllers
         [HttpGet]
         public ActionResult AddNewPhoto()
         {
-            return View(new string[] {Constants.CurrentUserFileName, Constants.PhotoFlag});
+            return View(new string[] {CurrentUser.FileName, Constants.PhotoFlag});
         }
 
         [HttpPost]

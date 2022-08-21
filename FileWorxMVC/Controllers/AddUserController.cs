@@ -14,7 +14,7 @@ namespace FileWorxMVC.Controllers
         [HttpGet]
         public ActionResult AddNewUser()
         {
-            return View(new string[] { Constants.CurrentUserFileName });
+            return View(new string[] { CurrentUser.FileName });
         }
 
         [HttpPost]

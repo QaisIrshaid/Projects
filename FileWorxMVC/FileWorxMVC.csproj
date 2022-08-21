@@ -144,6 +144,7 @@
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainPageController.cs" />
+    <Compile Include="FileWorxActions\LoginActions.cs" />
     <Compile Include="FileWorxActions\MainPageActions.cs" />
     <Compile Include="FileWorxActions\NewsActions.cs" />
     <Compile Include="FileWorxActions\PhotoActions.cs" />
@@ -152,6 +153,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\CurrentUser.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\User.cs" />

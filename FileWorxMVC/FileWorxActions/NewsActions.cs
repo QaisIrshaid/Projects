@@ -15,7 +15,7 @@ namespace FileWorxMVC.FileWorxActions
 
             if (news.FileDirectory == null)
             {
-                news.FileDirectory = System.Web.HttpContext.Current.Server.MapPath("~/News/" + Guid.NewGuid().ToString() + ".txt");
+                news.FileDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.NewsFolder + Guid.NewGuid().ToString() + ".txt");
             }
 
             StreamWriter streamWriter = new StreamWriter(news.FileDirectory);
