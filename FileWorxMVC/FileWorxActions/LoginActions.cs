@@ -9,7 +9,7 @@ namespace FileWorxMVC.FileWorxActions
 {
     public static class LoginActions
     {
-        public static bool Authorize(Login login)
+        public static bool Validation(Login login)
         {
             var usersDirectory = System.Web.HttpContext.Current.Server.MapPath(Constants.UsersFolder);
             string[] entries = Directory.GetFileSystemEntries(usersDirectory);

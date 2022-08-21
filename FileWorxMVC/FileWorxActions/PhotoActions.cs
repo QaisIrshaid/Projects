@@ -33,6 +33,7 @@ namespace FileWorxMVC.FileWorxActions
                 string newPhoto = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.PhotosFolder), photo.PhotoName);
                 photo.ImageFile.SaveAs(newPhoto);
             }
+
             else
             {
                 //User didn't change the photo, keep the old photo and assign the PhotoName porprty  with it's name.

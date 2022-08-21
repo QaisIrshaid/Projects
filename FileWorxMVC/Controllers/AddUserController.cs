@@ -20,8 +20,12 @@ namespace FileWorxMVC.Controllers
         [HttpPost]
         public ActionResult PostUser(User user)
         {
-            UserActions.PostUser(user);
-            return RedirectToAction("LoadObjects", "MainPage");
+            if (UserActions.PostUser(user))
+            {
+                return RedirectToAction("LoadObjects", "MainPage");
+            }
+            ViewBag.validation = "false";
+            return View("AddNewUser", new string[] { CurrentUser.FileName });
         }
 
         public ActionResult ViewUsers()
@@ -38,8 +42,12 @@ namespace FileWorxMVC.Controllers
         [HttpPost]
         public ActionResult PostUserUpdates(User user)
         {
-            UserActions.PostUserUpdates(user);
-            return RedirectToAction("LoadObjects", "MainPage");
+            if (UserActions.PostUserUpdates(user))
+            {
+                return RedirectToAction("LoadObjects", "MainPage");
+            }
+            ViewBag.validation = "false";
+            return View("GetUserInfo",UserActions.GetUserInfo());
         }
     }
 }

@@ -10,24 +10,25 @@
                 <tr>
                     <td class="lead">Name</td>
                     <td>
-                        <input id="name" name="Name" type="text" required value="@Model[0]"/>
+                        <input id="name" name="Name" type="text" required value="@Model[0]" />
                     </td>
                 </tr>
 
                 <tr>
                     <td class="lead">Login Name</td>
                     <td>
-                        <input id="loginName" name="LoginName" type="text" required value="@Model[1]"/>
+                        <input id="loginName" name="LoginName" type="text" required value="@Model[1]" />
                     </td>
                 </tr>
                 <tr>
                     <td class="lead">Password</td>
                     <td>
-                        <input id="password" name="Password" type="password" required  value="@Model[2]" />
+                        <input id="password" name="Password" type="password" required value="@Model[2]" />
                     </td>
                 </tr>
 
             </table>
+            <div class="text-center"><h5 id="validation" hidden class="text-danger ">Unvalid Login Name</h5></div>
             <div id="HiddenInputs">
                 <input type="hidden" name="LastModifierFileName" value="@Model[3]" />
             </div>
@@ -38,6 +39,12 @@
 
         </div>
     }
+<script>
+    let value="@ViewBag.validation";
+    if (value == "false") {
+        document.getElementById("validation").removeAttribute("hidden");
+    }
+</script>
 
 
 

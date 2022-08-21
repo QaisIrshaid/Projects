@@ -3,34 +3,34 @@
 }
 
 
-    <h1 class="text-center">FileWorx </h1>
-    <br />
-    <hr />
-    <br />
-    @using (Html.BeginForm("PostLogin", "Login", FormMethod.Post))
-    {
-        <div>
-            <table>
-                <tr>
-                    
-                    <td>                     
-                            <label for="loginname">Username : </label>
-                            <input id="loginname" name="LoginName" type="text" />                      
-                    </td>
-                </tr>
+<h1 class="text-center">FileWorx </h1>
+<br />
+<hr />
+<br />
+@using (Html.BeginForm("PostLogin", "Login", FormMethod.Post))
+{
+    <div>
+        <table>
+            <tr>
 
-                <tr>
-                    <td>
-                        <label for="password">Password : </label>
-                        <input id="password" name="Password" type="password" />
-                    </td>
-                </tr>
-            </table>
-            <div class="text-center"><h5 id="validation" hidden class="text-danger ">Wrong Username or Password</h5></div>
-            <br />
-            <div class="text-center"><input type="submit" value="Login" class="btn btn-lg btn-default text-center" /></div>
-        </div>
-    }
+                <td>
+                    <label for="loginname">Username : </label>
+                    <input id="loginname" name="LoginName" type="text" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="password">Password : </label>
+                    <input id="password" name="Password" type="password" />
+                </td>
+            </tr>
+        </table>
+        <div class="text-center"><h5 id="validation" hidden class="text-danger ">Wrong Username or Password</h5></div>
+        <br />
+        <div class="text-center"><input type="submit" value="Login" class="btn btn-lg btn-default text-center" /></div>
+    </div>
+}
 <script>
 
 

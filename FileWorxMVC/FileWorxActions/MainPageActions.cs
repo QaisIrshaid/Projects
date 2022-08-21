@@ -23,10 +23,15 @@ namespace FileWorxMVC.FileWorxActions
                 FileInfo fileInfo = new FileInfo(entries[i]);
                 DateTime date = fileInfo.CreationTime;
                 string lastModifier = UserActions.GetUsername(objectAttributes[3]);
-                //                        Title         Creation Date         Description        Object Index   Last Modifier
+
+                //                        Title           CreationDate         Description     Object Index   LastModifier
                 row = new string[] { objectAttributes[0], date.ToString(), objectAttributes[1], i.ToString(), lastModifier };
                 allObjects.Add(row);
             }
+            allObjects = allObjects
+                        .OrderByDescending(arr => arr[1])
+                        .ThenBy(arr => arr[0])
+                        .ToList();
             return allObjects;
         }
 
@@ -52,7 +57,7 @@ namespace FileWorxMVC.FileWorxActions
             }
 
             else
-            {               
+            {
                 //                                 Title               Description                    Photo Directory                  Body       PhotoFlag
                 string[] row = new string[] { objectAttributes[0], objectAttributes[1], Path.Combine("/Photos/", objectAttributes[2]), body, objectAttributes[4] };
                 return row;
@@ -95,7 +100,7 @@ namespace FileWorxMVC.FileWorxActions
             }
 
             if (objectAttributes[4] == Constants.NewsFlag)
-            { 
+            {
                 //                                  Title            Description           Category        Body  /File directory/    Last Modifier               NewsFlag
                 string[] row = new string[] { objectAttributes[0], objectAttributes[1], objectAttributes[2], body, entries[id], CurrentUser.FileName, Constants.NewsFlag };
                 return (row);

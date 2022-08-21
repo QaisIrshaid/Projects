@@ -19,7 +19,7 @@ namespace FileWorxMVC.Controllers
         [HttpPost]
         public ActionResult PostLogin(Login login)
         {
-            if (LoginActions.Authorize(login))
+            if (LoginActions.Validation(login))
             {
                 return RedirectToAction("LoadObjects", "MainPage"); 
             }

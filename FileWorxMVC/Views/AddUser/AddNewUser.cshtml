@@ -27,8 +27,10 @@
                 </tr>
 
             </table>
+            <div class="text-center"><h5 id="validation" hidden class="text-danger ">Unvalid Login Name</h5></div>
             <div id="HiddenInputs">
                 <input type="hidden" name="LastModifierFileName" value="@Model[0]" />
+                
             </div>
         </div>
         <br />
@@ -37,6 +39,12 @@
 
         </div>
     }
+<script>
+    let value="@ViewBag.validation";
+    if (value == "false") {
+        document.getElementById("validation").removeAttribute("hidden");
+    }
+</script>
 
 
 
