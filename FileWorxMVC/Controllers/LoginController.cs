@@ -23,6 +23,7 @@ namespace FileWorxMVC.Controllers
             {
                 return RedirectToAction("LoadObjects", "MainPage"); 
             }
+            ViewBag.validation = "false";
             return View("GetLogin");
         }
     }

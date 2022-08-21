@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/ViewPage1.cshtml";
 }
 
+
     <h1 class="text-center">FileWorx </h1>
     <br />
     <hr />
@@ -24,11 +25,20 @@
                         <input id="password" name="Password" type="password" />
                     </td>
                 </tr>
-
             </table>
+            <div class="text-center"><h5 id="validation" hidden class="text-danger ">Wrong Username or Password</h5></div>
             <br />
             <div class="text-center"><input type="submit" value="Login" class="btn btn-lg btn-default text-center" /></div>
         </div>
     }
+<script>
+
+
+    let value="@ViewBag.validation";
+    if (value == "false") {
+        document.getElementById("validation").removeAttribute("hidden");
+    }
+
+</script>
 
 
